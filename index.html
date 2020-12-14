@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Список (шарага)</title>
+    <title>Scania-Международный стандарт</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -19,28 +19,29 @@
             <div class="col-md-12">
                 <div class="rounded p-4" style="background-color: white;">
 
+                    <div class="row">
+                        <div class="form-inline my-2 my-lg-0 d-flex justify-content-center">
+                            <input class="form-control  btn-block mr-sm-2" type="search" placeholder="Поиск"
+                                aria-label="Search">
+                            <button class="btn btn-outline-secondary my-2 my-sm-0" id="searchBotton">Поиск</button>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-md-12">
-                            <table class="table w-100" id="mainTable">
+                            <table class="table w-100" style="display: none;" id="mainTable">
                                 <thead class="w-100">
                                     <tr>
                                         <th scope="col" class="w-25">#</th>
                                         <th scope="col" class="w-25">First</th>
                                         <th scope="col" class="w-25">Last</th>
+                                        <th scope="col" class="w-25">Delete</th>
+                                        <th scope="col" class="w-25">Increase</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tablediv">
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p3 id="x1"></p3>
-                            <p3 id="x2"></p3>
                         </div>
                     </div>
 
@@ -53,8 +54,6 @@
 
     <script type="text/javascript">
 
-        var x1='dfdsfgsdfg', x2='sfsfss';
-
         var tableSearch = [
             [1, '2', '3'],
             [2, '4', '5'],
@@ -66,15 +65,29 @@
         console.log(tableSearch);
         //console.log(items[0][0]); // 1
 
-        $(document).ready(function () {
+        function del(id) {
+            $('#row_'+id).remove();
+        }
+
+        function inc(id) {
+            let td = $('#row_'+id).children().eq(0);
+
+            let val = td.html() * 3;
             
+            td.html(val);
+        }
+
+        $(document).ready(function () {
+            $('#searchBotton').on("click", function (event) {
+                $("#tablediv").html("");
+                $('#mainTable').css("display", "block");
+
                 for (var i = 0; i < tableSearch.length; i++) {
-                   
-                    $("#tablediv").append('<tr id="row_' + tableSearch[i][0] + '"><td>' + tableSearch[i][0] + '</td><td>' + tableSearch[i][1] + '</td><td>' + tableSearch[i][2] + '</td></tr>');
+                    console.log();
+
+                    $("#tablediv").append('<tr id="row_' + tableSearch[i][0] + '"><td>' + tableSearch[i][0] + '</td><td>' + tableSearch[i][1] + '</td><td>' + tableSearch[i][2] + '</td><td><button onclick="inc(' + tableSearch[i][0] + ')" type="button" class="btn btn-primary">Increase</button></td><td><button onclick="del(' + tableSearch[i][0] + ')" type="button" class="btn btn-danger">Delete</button></td></tr>');
                 }
-           
-           $("#x1").append('<p3>'+x1+'</p>');
-        $("#x2").append('<p3>'+x2+'</p>');
+            });
         })
     </script>
 </body>
